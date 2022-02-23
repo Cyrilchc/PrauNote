@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
