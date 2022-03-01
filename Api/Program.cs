@@ -1,15 +1,15 @@
 using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
+// Voir le fichier html dans le projet pour un tuto minimal api
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -21,8 +21,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// Add database context
 builder.Services.AddSingleton<Context>();
-ConfigurationManager configuration = builder.Configuration;
+
+// Auth config
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -52,7 +55,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Apply database migrations at runtime
+Context context = app.Services.GetRequiredService<Context>();
+if (context.Database.GetPendingMigrations().Any())
+    context.Database.Migrate();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -65,6 +73,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 //app.MapControllers();
+
+// All contrôlers require the request to be authorized by default
 app.MapControllers().RequireAuthorization();
 
 app.Run();

@@ -25,7 +25,27 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Fichiers divers",
       "ColorIndex": -1
+    },
+    "5b4fb8d5-efc2-4d81-8f7b-e08e2ccf2f77": {
+      "ProjectGuid": "5b4fb8d5-efc2-4d81-8f7b-e08e2ccf2f77",
+      "DisplayName": "Models",
+      "ColorIndex": 4
+    },
+    "6f916e36-01a8-4709-b9e4-f4d0c36c990c": {
+      "ProjectGuid": "6f916e36-01a8-4709-b9e4-f4d0c36c990c",
+      "DisplayName": "Front",
+      "ColorIndex": 5
+    },
+    "af628c14-a877-4c37-91eb-63a79e403d6c": {
+      "ProjectGuid": "af628c14-a877-4c37-91eb-63a79e403d6c",
+      "DisplayName": "FrontRazorPages",
+      "ColorIndex": 6
+    },
+    "8fdff089-8445-45cd-9d03-6a63eee31420": {
+      "ProjectGuid": "8fdff089-8445-45cd-9d03-6a63eee31420",
+      "DisplayName": "MinimalApi",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 8
 }
