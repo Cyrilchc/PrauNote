@@ -31,7 +31,7 @@ namespace FrontRazorPages.Pages.Groups
                 return NotFound();
             }
 
-            Group = await _context.Groups.FirstOrDefaultAsync(m => m.GroupId == id);
+            Group = await _context.Groups.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Group == null)
             {
@@ -57,7 +57,7 @@ namespace FrontRazorPages.Pages.Groups
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GroupExists(Group.GroupId))
+                if (!GroupExists(Group.Id))
                 {
                     return NotFound();
                 }
@@ -72,7 +72,7 @@ namespace FrontRazorPages.Pages.Groups
 
         private bool GroupExists(int id)
         {
-            return _context.Groups.Any(e => e.GroupId == id);
+            return _context.Groups.Any(e => e.Id == id);
         }
     }
 }

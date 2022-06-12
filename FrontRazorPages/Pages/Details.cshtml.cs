@@ -29,7 +29,7 @@ namespace FrontRazorPages.Pages
                 return NotFound();
             }
 
-            Student = await _context.Students.FirstOrDefaultAsync(m => m.StudentId == id);
+            Student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Student == null)
             {

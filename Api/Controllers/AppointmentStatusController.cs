@@ -43,7 +43,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppointmentStatus(int id, AppointmentStatus appointmentStatus)
         {
-            if (id != appointmentStatus.AppointmentStatusId)
+            if (id != appointmentStatus.Id)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             _context.AppointmentStatuses.Add(appointmentStatus);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAppointmentStatus", new { id = appointmentStatus.AppointmentStatusId }, appointmentStatus);
+            return CreatedAtAction("GetAppointmentStatus", new { id = appointmentStatus.Id }, appointmentStatus);
         }
 
         // DELETE: api/AppointmentStatus/5

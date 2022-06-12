@@ -31,7 +31,7 @@ namespace FrontRazorPages.Pages
                 return NotFound();
             }
 
-            Student = await _context.Students.FirstOrDefaultAsync(m => m.StudentId == id);
+            Student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Student == null)
             {
@@ -57,7 +57,7 @@ namespace FrontRazorPages.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(Student.StudentId))
+                if (!StudentExists(Student.Id))
                 {
                     return NotFound();
                 }
@@ -72,7 +72,7 @@ namespace FrontRazorPages.Pages
 
         private bool StudentExists(int id)
         {
-            return _context.Students.Any(e => e.StudentId == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

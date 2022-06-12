@@ -34,7 +34,7 @@ namespace Front.Controllers
             }
 
             var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace Front.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("StudentId,GivenName,Surname,Mail,BirthDate")] Student student)
         {
-            if (id != student.StudentId)
+            if (id != student.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Front.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentId))
+                    if (!StudentExists(student.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace Front.Controllers
             }
 
             var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace Front.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Students.Any(e => e.StudentId == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace FrontRazorPages.Pages.Groups
                 return NotFound();
             }
 
-            Group = await _context.Groups.FirstOrDefaultAsync(m => m.GroupId == id);
+            Group = await _context.Groups.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Group == null)
             {

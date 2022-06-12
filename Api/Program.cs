@@ -1,9 +1,13 @@
+using System.Linq;
 using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 // Voir le fichier html dans le projet pour un tuto minimal api
 
@@ -38,7 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Api:Issuer"], // https://stackoverflow.com/a/69722959
             ValidAudience = builder.Configuration["Api:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Api:Key"])),
-            //ClockSkew = TimeSpan.Zero // Sert à enlever le décalage de temps sur les expirations courtes : https://stackoverflow.com/a/67677801/10506880
+            //ClockSkew = TimeSpan.Zero // Sert ï¿½ enlever le dï¿½calage de temps sur les expirations courtes : https://stackoverflow.com/a/67677801/10506880
         };
     });
 
@@ -74,7 +78,7 @@ app.UseAuthorization();
 
 //app.MapControllers();
 
-// All contrôlers require the request to be authorized by default
+// All contrï¿½lers require the request to be authorized by default
 app.MapControllers().RequireAuthorization();
 
 app.Run();
