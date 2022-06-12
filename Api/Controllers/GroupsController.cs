@@ -43,7 +43,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGroup(int id, Group @group)
         {
-            if (id != @group.Id)
+            if (id != @group.GroupId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             _context.Groups.Add(@group);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+            return CreatedAtAction("GetGroup", new { id = @group.GroupId }, @group);
         }
 
         // DELETE: api/Groups/5

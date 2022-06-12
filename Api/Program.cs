@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // Add database context
-builder.Services.AddSingleton<Context>();
+builder.Services.AddTransient<Context>();
 
 // Auth config
 builder.Services.AddAuthorization();
@@ -76,9 +76,9 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllers();
+app.MapControllers();
 
 // All contr�lers require the request to be authorized by default
-app.MapControllers().RequireAuthorization();
+//app.MapControllers().RequireAuthorization();
 
 app.Run();

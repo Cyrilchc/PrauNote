@@ -43,7 +43,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGrade(int id, Grade grade)
         {
-            if (id != grade.Id)
+            if (id != grade.GradeId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             _context.Grades.Add(grade);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGrade", new { id = grade.Id }, grade);
+            return CreatedAtAction("GetGrade", new { id = grade.GradeId }, grade);
         }
 
         // DELETE: api/Grades/5

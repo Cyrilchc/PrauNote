@@ -43,7 +43,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSubject(int id, Subject subject)
         {
-            if (id != subject.Id)
+            if (id != subject.SubjectId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSubject", new { id = subject.Id }, subject);
+            return CreatedAtAction("GetSubject", new { id = subject.SubjectId }, subject);
         }
 
         // DELETE: api/Subjects/5

@@ -5,7 +5,7 @@ namespace Models
 {
     public class Appointment
     {
-        public int Id { get; set; }
+        public int AppointmentId { get; set; }
         public string AppointmentName { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

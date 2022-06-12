@@ -43,7 +43,7 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAttachment(int id, Attachment attachment)
         {
-            if (id != attachment.Id)
+            if (id != attachment.AttachmentId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace Api.Controllers
             _context.Attachments.Add(attachment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAttachment", new { id = attachment.Id }, attachment);
+            return CreatedAtAction("GetAttachment", new { id = attachment.AttachmentId }, attachment);
         }
 
         // DELETE: api/Attachments/5

@@ -2,7 +2,7 @@
 {
     public class AuthToken
     {
-        public int Id { get; set; }
+        public int AuthTokenId { get; set; }
         public string Token { get; set; }
     }
 }
