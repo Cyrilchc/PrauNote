@@ -1,5 +1,4 @@
-﻿using AuthModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 
@@ -7,8 +6,6 @@ namespace Data
 {
     public class Context : DbContext
     {
-        public DbSet<AuthToken> AuthTokens { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
