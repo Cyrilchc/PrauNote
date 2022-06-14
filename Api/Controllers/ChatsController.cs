@@ -12,47 +12,47 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class ChatsController : ControllerBase
     {
         private readonly Context _context;
 
-        public StudentsController(Context context)
+        public ChatsController(Context context)
         {
             _context = context;
         }
 
-        // GET: api/Students
+        // GET: api/Chats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Chats.ToListAsync();
         }
 
-        // GET: api/Students/5
+        // GET: api/Chats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<Chat>> GetChat(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var chat = await _context.Chats.FindAsync(id);
 
-            if (student == null)
+            if (chat == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return chat;
         }
 
-        // PUT: api/Students/5
+        // PUT: api/Chats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutChat(int id, Chat chat)
         {
-            if (id != student.PersonId)
+            if (id != chat.ChatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            _context.Entry(chat).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(id))
+                if (!ChatExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Students
+        // POST: api/Chats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Chat>> PostChat(Chat chat)
         {
-            _context.Students.Add(student);
+            _context.Chats.Add(chat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.PersonId }, student);
+            return CreatedAtAction("GetChat", new { id = chat.ChatId }, chat);
         }
 
-        // DELETE: api/Students/5
+        // DELETE: api/Chats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
+        public async Task<IActionResult> DeleteChat(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var chat = await _context.Chats.FindAsync(id);
+            if (chat == null)
             {
                 return NotFound();
             }
 
-            _context.Students.Remove(student);
+            _context.Chats.Remove(chat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool StudentExists(int id)
+        private bool ChatExists(int id)
         {
-            return _context.Students.Any(e => e.PersonId == id);
+            return _context.Chats.Any(e => e.ChatId == id);
         }
     }
 }

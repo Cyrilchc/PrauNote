@@ -3,6 +3,7 @@ using System;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220613140706_Person_message_chat")]
+    partial class Person_message_chat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -160,9 +162,6 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ChatId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("FromPersonId")
                         .HasColumnType("INTEGER");
 
@@ -176,8 +175,6 @@ namespace Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("MessageId");
-
-                    b.HasIndex("ChatId");
 
                     b.HasIndex("FromPersonId");
 
@@ -302,10 +299,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.Message", b =>
                 {
-                    b.HasOne("Models.Chat", null)
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatId");
-
                     b.HasOne("Models.Person", "From")
                         .WithMany()
                         .HasForeignKey("FromPersonId");
@@ -346,8 +339,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Chat", b =>
                 {
                     b.Navigation("Attendees");
-
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("Models.Group", b =>

@@ -12,47 +12,47 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class TeachersController : ControllerBase
     {
         private readonly Context _context;
 
-        public StudentsController(Context context)
+        public TeachersController(Context context)
         {
             _context = context;
         }
 
-        // GET: api/Students
+        // GET: api/Teachers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Teachers.ToListAsync();
         }
 
-        // GET: api/Students/5
+        // GET: api/Teachers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var teacher = await _context.Teachers.FindAsync(id);
 
-            if (student == null)
+            if (teacher == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return teacher;
         }
 
-        // PUT: api/Students/5
+        // PUT: api/Teachers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
         {
-            if (id != student.PersonId)
+            if (id != teacher.PersonId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            _context.Entry(teacher).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(id))
+                if (!TeacherExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Students
+        // POST: api/Teachers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            _context.Students.Add(student);
+            _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.PersonId }, student);
+            return CreatedAtAction("GetTeacher", new { id = teacher.PersonId }, teacher);
         }
 
-        // DELETE: api/Students/5
+        // DELETE: api/Teachers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
+        public async Task<IActionResult> DeleteTeacher(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var teacher = await _context.Teachers.FindAsync(id);
+            if (teacher == null)
             {
                 return NotFound();
             }
 
-            _context.Students.Remove(student);
+            _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool StudentExists(int id)
+        private bool TeacherExists(int id)
         {
-            return _context.Students.Any(e => e.PersonId == id);
+            return _context.Teachers.Any(e => e.PersonId == id);
         }
     }
 }
