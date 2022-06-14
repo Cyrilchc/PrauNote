@@ -6,14 +6,20 @@ namespace Data
 {
     public class Context : DbContext
     {
+
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
-        public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Grade> Grades { get; set; }
+        //public DbSet<AppointmentStatus> AppointmentStatus { get; set; }
+        //public DbSet<Assignment> Assignments { get; set; }
+        //public DbSet<Attachment> Attachments { get; set; }
+        //public DbSet<Chat> Chats { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        //public DbSet<Message> Messages { get; set; }
+        //public DbSet<PersonSetting> PersonSettings { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        //public DbSet<Teacher> Teachers { get; set; }
+        
 
         public string DbPath { get; }
 

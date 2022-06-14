@@ -1,4 +1,5 @@
-﻿#nullable disable
+﻿
+#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
@@ -9,20 +10,13 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentsController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
         private readonly Context _context;
 
-        public AppointmentsController(Context context)
+        public AppointmentController(Context context)
         {
             _context = context;
-        }
-
-        // GET: api/Appointments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
-        {
-            return await _context.Appointments.ToListAsync();
         }
 
         // GET: api/Appointments/5

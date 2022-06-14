@@ -8,11 +8,11 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GradesController : ControllerBase
+    public class GradeController : ControllerBase
     {
         private readonly Context _context;
 
-        public GradesController(Context context)
+        public GradeController(Context context)
         {
             _context = context;
         }
@@ -28,27 +28,27 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Grade>> GetGrade(int id)
         {
-            var grade = await _context.Grades.FindAsync(id);
+            var Grade = await _context.Grades.FindAsync(id);
 
-            if (grade == null)
+            if (Grade == null)
             {
                 return NotFound();
             }
 
-            return grade;
+            return Grade;
         }
 
+        
         // PUT: api/Grades/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGrade(int id, Grade grade)
+        public async Task<IActionResult> PutGrade(int id, Grade Grade)
         {
-            if (id != grade.GradeId)
+            if (id != Grade.GradeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(grade).State = EntityState.Modified;
+            _context.Entry(Grade).State = EntityState.Modified;
 
             try
             {
@@ -66,31 +66,30 @@ namespace Api.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetGrade", new { id = Grade.GradeId }, Grade);
         }
 
         // POST: api/Grades
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Grade>> PostGrade(Grade grade)
+        public async Task<ActionResult<Grade>> PostGrade(Grade Grade)
         {
-            _context.Grades.Add(grade);
+            _context.Grades.Add(Grade);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGrade", new { id = grade.GradeId }, grade);
+            return CreatedAtAction("GetGrade", new { id = Grade.GradeId }, Grade);
         }
 
         // DELETE: api/Grades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGrade(int id)
         {
-            var grade = await _context.Grades.FindAsync(id);
-            if (grade == null)
+            var Grade = await _context.Grades.FindAsync(id);
+            if (Grade == null)
             {
                 return NotFound();
             }
 
-            _context.Grades.Remove(grade);
+            _context.Grades.Remove(Grade);
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -1,4 +1,5 @@
-﻿#nullable disable
+﻿
+#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
@@ -8,47 +9,47 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupsController : ControllerBase
+    public class SubjectController : ControllerBase
     {
         private readonly Context _context;
 
-        public GroupsController(Context context)
+        public SubjectController(Context context)
         {
             _context = context;
         }
 
-        // GET: api/Groups
+        // GET: api/Subjects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
+        public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects()
         {
-            return await _context.Groups.ToListAsync();
+            return await _context.Subjects.ToListAsync();
         }
 
-        // GET: api/Groups/5
+        // GET: api/Subjects/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Group>> GetGroup(int id)
+        public async Task<ActionResult<Subject>> GetSubject(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
+            var subject = await _context.Subjects.FindAsync(id);
 
-            if (@group == null)
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return subject;
         }
 
-        // PUT: api/Groups/5
+        // PUT: api/Subjects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        public async Task<IActionResult> PutSubject(int id, Subject subject)
         {
-            if (id != @group.GroupId)
+            if (id != subject.SubjectId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@group).State = EntityState.Modified;
+            _context.Entry(subject).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +57,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GroupExists(id))
+                if (!SubjectExists(id))
                 {
                     return NotFound();
                 }
@@ -69,36 +70,36 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Groups
+        // POST: api/Subjects
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
         {
-            _context.Groups.Add(@group);
+            _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGroup", new { id = @group.GroupId }, @group);
+            return CreatedAtAction("GetSubject", new { id = subject.SubjectId }, subject);
         }
 
-        // DELETE: api/Groups/5
+        // DELETE: api/Subjects/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup(int id)
+        public async Task<IActionResult> DeleteSubject(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
-            if (@group == null)
+            var subject = await _context.Subjects.FindAsync(id);
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            _context.Groups.Remove(@group);
+            _context.Subjects.Remove(subject);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool GroupExists(int id)
+        private bool SubjectExists(int id)
         {
-            return _context.Groups.Any(e => e.GroupId == id);
+            return _context.Subjects.Any(e => e.SubjectId == id);
         }
     }
 }

@@ -8,16 +8,17 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentController : ControllerBase
     {
         private readonly Context _context;
 
-        public StudentsController(Context context)
+        public StudentController(Context context)
         {
             _context = context;
         }
 
         // GET: api/Students
+        [HttpGet]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
@@ -28,27 +29,27 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var Student = await _context.Students.FindAsync(id);
 
-            if (student == null)
+            if (Student == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return Student;
         }
 
         // PUT: api/Students/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutStudent(int id, Student Student)
         {
-            if (id != student.StudentId)
+            if (id != Student.PersonId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            _context.Entry(Student).State = EntityState.Modified;
 
             try
             {
@@ -66,31 +67,31 @@ namespace Api.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetStudent", new { id = Student.PersonId }, Student);
         }
 
         // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Student>> PostStudent(Student Student)
         {
-            _context.Students.Add(student);
+            _context.Students.Add(Student);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
+            return CreatedAtAction("GetStudent", new { id = Student.PersonId }, Student);
         }
 
         // DELETE: api/Students/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var Student = await _context.Students.FindAsync(id);
+            if (Student == null)
             {
                 return NotFound();
             }
 
-            _context.Students.Remove(student);
+            _context.Students.Remove(Student);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -98,7 +99,7 @@ namespace Api.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Students.Any(e => e.StudentId == id);
+            return _context.Students.Any(e => e.PersonId == id);
         }
     }
 }
