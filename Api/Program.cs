@@ -30,7 +30,21 @@ builder.Services.AddTransient<Context>();
 
 // Auth config
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);    
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Api:Issuer"], // https://stackoverflow.com/a/69722959
+            ValidAudience = builder.Configuration["Api:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Api:Key"])),
+            //ClockSkew = TimeSpan.Zero // Sert � enlever le d�calage de temps sur les expirations courtes : https://stackoverflow.com/a/67677801/10506880
+        };
+    });
 
 builder.Services.AddCors(options =>
 {

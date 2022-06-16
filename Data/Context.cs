@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AuthModels;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 
@@ -15,6 +16,8 @@ namespace Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<AuthToken> AuthTokens { get; set; }
+        public DbSet<User> Users { get; set; }
         
 
         public string DbPath { get; }
