@@ -130,7 +130,7 @@ namespace Api.Controllers
         /// </summary>
         /// <param name="login"></param>
         /// <returns>L'utilisateur trouvé en base</returns>
-        private async Task<User> Authenticate(SignInModel login)
+        private async Task<User>Authenticate(SignInModel login)
         {
             // Récupère l'utilsateur en base qui correspond aux identifiants fournis
             User user = _context.Users.Where(x => x.Email == login.Mail).First();
