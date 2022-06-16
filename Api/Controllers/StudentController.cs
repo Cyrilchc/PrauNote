@@ -17,19 +17,18 @@ namespace Api.Controllers
             _context = context;
         }
 
-        // GET: api/Students
-        [HttpGet]
-        [HttpGet]
+        // GET: api/Students/GetStudents
+        [HttpGet("GetStudents")]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             return await _context.Students.ToListAsync();
         }
 
         // GET: api/Students/5
-        [HttpGet("{id}")]
+        [HttpGet("GetStudent/{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var Student = await _context.Students.FindAsync(id);
+            var Student = await _context.Students.Where(x=> x.Id == id).Include("Grades").FirstOrDefaultAsync();
 
             if (Student == null)
             {
@@ -39,17 +38,26 @@ namespace Api.Controllers
             return Student;
         }
 
-        // PUT: api/Students/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student Student)
+        // POST: api/Students
+        [HttpPost("CreateStudent")]
+        public async Task<ActionResult<Student>> CreateStudent(Student student)
         {
-            if (id != Student.PersonId)
+            _context.Students.Add(student);
+            await _context.SaveChangesAsync();
+
+            return student;
+        }
+
+        // PUT: api/Students/5
+        [HttpPut("UpdateStudent")]
+        public async Task<IActionResult> UpdateStudent(Student student)
+        {
+            if (student == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(Student).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +65,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(id))
+                if (!StudentExists(student.Id))
                 {
                     return NotFound();
                 }
@@ -67,22 +75,12 @@ namespace Api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetStudent", new { id = Student.PersonId }, Student);
-        }
+            return NoContent();
 
-        // POST: api/Students
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student Student)
-        {
-            _context.Students.Add(Student);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetStudent", new { id = Student.PersonId }, Student);
         }
 
         // DELETE: api/Students/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteStudent/{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             var Student = await _context.Students.FindAsync(id);
@@ -99,7 +97,7 @@ namespace Api.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Students.Any(e => e.PersonId == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿
-#nullable disable
+﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -19,26 +17,35 @@ namespace Api.Controllers
             _context = context;
         }
 
-        // GET: api/Appointments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Appointment>> GetAppointment(int id)
+        // GET: api/Appointment/GetPersonAppointment
+        [HttpGet("GetPersonAppointment/{id}")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetPersonAppointment(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
-
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-
-            return appointment;
+            return await _context.Appointments.Where(x => x.PersonId == id).ToListAsync();
         }
 
-        // PUT: api/Appointments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, Appointment appointment)
+        // GET: api/Appointment/GetGroupAppointment
+        [HttpGet("GetGroupAppointment/{id}")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetGroupAppointment(int id)
         {
-            if (id != appointment.AppointmentId)
+            return await _context.Appointments.Where(x => x.GroupID == id).ToListAsync();
+        }
+
+        // POST: api/Appointment/CreateAppointment
+        [HttpPost("CreateAppointment")]
+        public async Task<ActionResult<Appointment>> CreateAppointment(Appointment appointment)
+        {
+            _context.Appointments.Add(appointment);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT: api/Appointment/UpdateAppointment
+        [HttpPut("UpdateAppointment")]
+        public async Task<IActionResult> UpdateAppointment(Appointment appointment)
+        {
+            if (appointment == null)
             {
                 return BadRequest();
             }
@@ -51,7 +58,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppointmentExists(id))
+                if (!AppointmentExists(appointment.Id))
                 {
                     return NotFound();
                 }
@@ -62,30 +69,20 @@ namespace Api.Controllers
             }
 
             return NoContent();
+
         }
 
-        // POST: api/Appointments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
-        {
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAppointment", new { id = appointment.AppointmentId }, appointment);
-        }
-
-        // DELETE: api/Appointments/5
-        [HttpDelete("{id}")]
+        // DELETE: api/DeleteAppointment/5
+        [HttpDelete("DeleteAppointment/{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment == null)
+            var Appointment = await _context.Appointments.FindAsync(id);
+            if (Appointment == null)
             {
                 return NotFound();
             }
 
-            _context.Appointments.Remove(appointment);
+            _context.Appointments.Remove(Appointment);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -93,7 +90,7 @@ namespace Api.Controllers
 
         private bool AppointmentExists(int id)
         {
-            return _context.Appointments.Any(e => e.AppointmentId == id);
+            return _context.Appointments.Any(e => e.Id == id);
         }
     }
 }

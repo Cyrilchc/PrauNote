@@ -1,5 +1,4 @@
-﻿
-#nullable disable
+﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
@@ -19,32 +18,27 @@ namespace Api.Controllers
         }
 
         // GET: api/Subjects
-        [HttpGet]
+        [HttpGet("GetSubjects")]
         public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects()
         {
             return await _context.Subjects.ToListAsync();
         }
 
-        // GET: api/Subjects/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Subject>> GetSubject(int id)
+        // POST: api/Subjects
+        [HttpPost("CreateSubject")]
+        public async Task<ActionResult<Subject>> CreateSubject(Subject subject)
         {
-            var subject = await _context.Subjects.FindAsync(id);
-
-            if (subject == null)
-            {
-                return NotFound();
-            }
+            _context.Subjects.Add(subject);
+            await _context.SaveChangesAsync();
 
             return subject;
         }
 
         // PUT: api/Subjects/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSubject(int id, Subject subject)
+        [HttpPut("UpdateSubject")]
+        public async Task<IActionResult> UpdateSubject(Subject subject)
         {
-            if (id != subject.SubjectId)
+            if (subject == null)
             {
                 return BadRequest();
             }
@@ -57,7 +51,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SubjectExists(id))
+                if (!SubjectExists(subject.Id))
                 {
                     return NotFound();
                 }
@@ -68,21 +62,11 @@ namespace Api.Controllers
             }
 
             return NoContent();
-        }
 
-        // POST: api/Subjects
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
-        {
-            _context.Subjects.Add(subject);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSubject", new { id = subject.SubjectId }, subject);
         }
 
         // DELETE: api/Subjects/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteSubject/{id}")]
         public async Task<IActionResult> DeleteSubject(int id)
         {
             var subject = await _context.Subjects.FindAsync(id);
@@ -99,7 +83,7 @@ namespace Api.Controllers
 
         private bool SubjectExists(int id)
         {
-            return _context.Subjects.Any(e => e.SubjectId == id);
+            return _context.Subjects.Any(e => e.Id == id);
         }
     }
 }

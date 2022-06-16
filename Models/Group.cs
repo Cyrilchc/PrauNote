@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
     public class Group
     {
-        public int GroupId { get; set; }
-        public string GroupName { get; set; }
-        public DateTime GroupDate { get; set; }
-        public int GroupTotal { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
         public List<Student> Students { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

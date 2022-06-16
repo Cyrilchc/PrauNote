@@ -1,8 +1,16 @@
-﻿namespace Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Models
 {
     public class Subject
     {
-        public int SubjectId { get; set; }
-        public string SubjectName { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //public List<Grade> Grades { get; set; }
+
     }
 }

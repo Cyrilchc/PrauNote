@@ -4,12 +4,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:52211",
-      "sslPort": 44378
+      "applicationUrl": "http://localhost:5000",
+      "sslPort": 5000
     }
   },
   "profiles": {
-    "Api": {
+    "API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -19,12 +19,22 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Api Test": {
+    "API METZ CAMPUS": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://192.168.43.181:5000",
+      "applicationUrl": "http://172.19.2.11:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "API FREEBOX": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://91.172.240.163:17123",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
