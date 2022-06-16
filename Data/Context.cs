@@ -1,6 +1,5 @@
 ﻿using AuthModels;
 using Microsoft.EntityFrameworkCore;
-using Models;
 using System;
 
 namespace Data
@@ -9,14 +8,6 @@ namespace Data
     {
         public DbSet<AuthToken> AuthTokens { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
-        public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
 
         public string DbPath { get; }
 
