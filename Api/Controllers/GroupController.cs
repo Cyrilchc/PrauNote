@@ -33,6 +33,7 @@ namespace Api.Controllers
             return await _context.Groups.Where(x => x.Id == id)
                 .Include("Students")
                 .Include("Students.Grades")
+                .Include("Students.Grades.Subject")
                 .Include("Appointments")
                 .FirstOrDefaultAsync();
         }

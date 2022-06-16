@@ -46,7 +46,6 @@ namespace Api.Controllers
         public async Task<ActionResult<Chat>> CreateChat(Chat chat)
         {
             _context.Chats.Add(chat);
-            //_context.ChatAffectations.AddRange(chat.ChatAffectations.ToList());
 
             await _context.SaveChangesAsync();
 
